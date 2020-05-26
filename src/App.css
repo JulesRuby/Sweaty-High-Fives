@@ -1,10 +1,19 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
   text-align: center;
+
+  min-height: 100vh;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
+
+  
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -25,6 +34,152 @@
 .App-link {
   color: rgb(112, 76, 182);
 }
+
+h1 {
+  font-family: var(--orbitron);
+  color: var(--aether);
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
+
+Form {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 5vmin;
+
+  padding: 25px;
+
+  width: 75vw;
+  max-width: 1200px;
+  min-height: 600px;
+  outline: 0;
+}
+
+Form label {
+  display: flex;
+  align-items: flex-end;
+
+  padding-bottom: 40px;
+
+  font-size: .95rem;
+  text-align: left;
+}
+
+label > input {
+  flex-grow: 1;
+}
+
+Form input {
+  padding: 5px 0px 2px 0px;
+  margin: 0 0 0 10px;
+
+  font-family: var(--jura);
+  font-size: 1rem;
+  letter-spacing: .05rem;
+
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid var(--chemistry-30);
+
+  color: var(--lumo);
+  background-color:  rgba(0, 0, 0, 0);
+
+  transition: all .15s ease-in;
+}
+
+Form input:active,
+Form input:focus {
+  border-bottom: 2px solid var(--chemistry);
+  text-shadow: 0px 0px 2px var(--lumo);
+  letter-spacing: .1rem;
+}
+
+/* Text {
+  outline: rgba(0, 0, 0, 0);
+} */
+
+Form button,
+Form button:focus,
+Form button:active,
+Form button:not(:focus),
+Form input:active,
+Form input:focus,
+Form input:not(:focus),
+Form input:focus-visible,
+Form input:hover,
+Form input:visited {
+  outline: 0;
+}
+
+Form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 15px auto;
+  padding: 10px 30px;
+
+  width: fit-content;
+  
+  color: var(--lumo);
+  background-color: var(--grapefruit-0);
+
+  border: 3px solid var(--lumo-70);
+  border-radius:5px;
+
+  font-family: var(--orbitron);
+  font-size: 1rem;
+  /* font-weight: bold; */
+  letter-spacing: .1rem;
+  line-height: 100%;
+  vertical-align: middle;
+
+  outline: 0;
+
+  cursor: pointer;
+
+  transition: text-shadow .15s ease-in-out, box-shadow .15s ease-in-out;
+  /* transition: background-color s ease-in-out; */
+}
+
+Form button:active {
+  background-color: var(--aether-70);
+}
+
+Form button:hover {
+  text-shadow: 0px 0px 5px var(--lumo);
+  box-shadow: 0px 0px 5px var(--lumo), inset 0px 0px 5px var(--lumo);
+}
+
+.form-left,
+.form-right {
+  padding: 25px 50px;
+  background-color: var(--solar-30);
+}
+
+.form-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.form-left button {
+  margin-top: auto;
+}
+
+.form-right {
+  text-align: left;
+}
+
+.form-right label {
+  padding-bottom: 0;
+}
+
+.form-right code {
+  word-wrap: normal;
+  line-height: 1.5;
+}
+
 
 @keyframes App-logo-float {
   0% {

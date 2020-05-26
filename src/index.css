@@ -1,13 +1,61 @@
+@import url("https://fonts.googleapis.com/css?family=Jura|Orbitron&display=swap");
+/* @import './App.css'; */
+
+:root {
+  --midnight: rgba(42, 27, 75, 1);
+  --aether: rgba(89, 224, 216, 1);
+  --grapefruit: rgba(253, 96, 89, 1);
+  --chemistry: rgba(253, 89, 128, 1);
+  --solar: rgba(255, 173, 98, 1);
+  --lumo: rgba(198, 233, 233, 1);
+
+  /* Color Palette Opacity Shifts - Lightfall */
+  --midnight-70: rgba(42, 27, 75, 0.7); /* Project Card / Form BG */
+  --aether-30: rgba(89, 224, 216, .3);
+  --aether-70: rgba(89, 224, 216, .7);
+  --solar-30: rgba(255, 173, 98, 0.3); /*Lightfall-Core / Form Inputs */
+  --grapefruit-30: rgba(253, 96, 89, 0.3); /* Lightfall-Inner */
+  --grapefruit-80: rgba(253, 96, 89, 0.8);
+  --grapefruit-0: rgba(253, 96, 89, 0);
+  --chemistry-30: rgba(253, 89, 128, 0.3); /* Lightfall-Outer */
+  --lumo-70: rgba(198, 233, 233, .7);
+
+  /* Font Stuff */
+  --jura: "Jura", source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --orbitron: "Orbitron", source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
 body {
+  min-height: 100vh;
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--midnight);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Jura", source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+  color: var(--lumo);
+  letter-spacing: .05rem;
 }
+
+label {
+  font-family: "Orbitron", source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  color: var(--lumo);
+  font-weight: 500;
+  letter-spacing: .05rem;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+
