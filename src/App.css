@@ -7,6 +7,13 @@
   text-align: center;
 
   min-height: 100vh;
+
+  background: linear-gradient(
+    to bottom,
+    var(--midnight),
+    var(--midnight) 70%,
+    var(--chemistry-10) 100%
+  );
 }
 
 .App-logo {
@@ -51,7 +58,7 @@ Form {
 
   width: 75vw;
   max-width: 1200px;
-  min-height: 600px;
+  min-height: 800px;
   outline: 0;
 }
 
@@ -59,7 +66,8 @@ Form label {
   display: flex;
   align-items: flex-end;
 
-  padding-bottom: 40px;
+  padding-top: 30px;
+  padding-bottom: 5px;
 
   font-size: .95rem;
   text-align: left;
@@ -111,6 +119,11 @@ Form input:visited {
   outline: 0;
 }
 
+small {
+  font-family: var(--jura);
+  text-align: right;
+}
+
 Form button {
   display: flex;
   align-items: center;
@@ -151,10 +164,21 @@ Form button:hover {
   box-shadow: 0px 0px 5px var(--lumo), inset 0px 0px 5px var(--lumo);
 }
 
+.form-left .slideSubmit {
+  margin-top: 20px;
+}
+
 .form-left,
+.form-left-sliders,
 .form-right {
   padding: 25px 50px;
-  background-color: var(--solar-30);
+  background-color: var(--solar-40);
+}
+
+.form-left-sliders {
+  display: flex;
+  justify-content: space-evenly;
+  flex-grow: 1;
 }
 
 .form-left {
@@ -167,6 +191,8 @@ Form button:hover {
   margin-top: auto;
 }
 
+
+
 .form-right {
   text-align: left;
 }
@@ -178,6 +204,29 @@ Form button:hover {
 .form-right code {
   word-wrap: normal;
   line-height: 1.5;
+}
+
+
+.slider .MuiSlider-track {
+  color: var(--aether);
+  box-shadow: 0px 0px 5px var(--lumo)
+}
+
+.slider .MuiSlider-rail {
+  color: var(--lumo);
+}
+
+.slider .MuiSlider-thumb {
+  color: var(--midnight);
+}
+
+.slider .PrivateValueLabel-label-10 {
+  color: var(--solar);
+}
+
+
+h4 {
+  font-size: 1rem;
 }
 
 

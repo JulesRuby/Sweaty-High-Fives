@@ -23,7 +23,7 @@ export const CustomInputErr = asField(({ fieldState, fieldApi, ...props }) => {
             onBlur(e);
           }
         }}
-        style={fieldState.error ? { border: 'solid 20px var(--midnight)' } : null}
+        style={fieldState.error ? { border: 'solid 2px var(--midnight)' } : null}
       />
       {fieldState.error ? (
         <small style={{ color: 'var(--aether)' }}>{fieldState.error}</small>

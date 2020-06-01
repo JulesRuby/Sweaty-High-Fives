@@ -1,44 +1,54 @@
 import React from 'react';
-import { Text, useFieldApi, useFormApi } from 'informed';
+import {
+	 Text, 
+	//  useFieldApi, 
+	//  useFormApi, 
+	 useFieldState 
+	} from 'informed';
 
 export const MyInput = () => {
-	// const fieldApi = useFieldApi("number");
-	const fieldApi = useFieldApi('number');
-	const formApi = useFormApi()
+	const fieldState = useFieldState("number");
+	// const fieldApi = useFieldApi('number');
+	// const formApi = useFormApi()
 	
 
-	const phoneExp = new RegExp(/^(\+[1])?\s?(\d{1,3})\s?(\d{0,3})-?(\d{0,4})$/);
+	const phoneExp = new RegExp(/^(\+[1])\s?(\(\d{3}\))\s?(\d{3})-?(\d{4})$/);
+	
 
 	const validateNumber = value => {
 		// Just a basic RegExp for now
 		// const phoneExp = new RegExp(/^(\+|1|)?\s?(\d{1,3})\s?(\d{0,3})-?(\d{0,4})$/);
-		console.log(fieldApi.getError())
-		console.log(formApi.getError('number'))
 
 		// Chaining ternary expressions... Probably shouldn't do this, I just wanted to see if i could
 		return !value || value.length < 10 ? 'Phone number must be 10 digits' : 
-		!value.match(phoneExp) ? 'Number must match format!' : undefined
+    value && value.length > 15 ? 'Phone number is too long, please check for extra characters' :
+		!value.match(phoneExp) ? 'Number must match format!' : undefined;
 	}
 
 	const onKeyDown = (e) => {
-		
-		let key = e.keyCode
-		// console.log('Keydown Selection Start: ' + e.target.selectionStart)
-		// console.log('Keydown Selection End: ' + e.target.selectionEnd)
+		// I can use the positionStart and positionEnd values of the cursor to compare against the character in the position of the character in the input string.
+		// Then use the 
+		let positionStart = e.target.selectionStart;
+		let positionEnd = e.target.selectionEnd;
+		let key = e.keyCode;
 		let string = e.target.value
+
+		console.log(positionStart)
+		console.log(positionEnd)
+
 		
 		if(key === 8 && string.slice(-1) === '/') {  // 46 === delete
-			e.target.value = string.substring(0, string.length - 1);
-			key = undefined
-			e.preventDefault();
+			 e.target.value = string.substring(0, string.length - 1);
+			 key = undefined
+			 e.preventDefault();
+		}
 	}
-}
 
-const keyUp = e => {
-	let thing = e.target.value
-	// console.log('Keyup Selection Start: ' + e.target.selectionStart)
-	// console.log('Keyup Selection End: ' + e.target.selectionEnd)
-}
+		// const keyUp = e => {
+		// 	let thing = e.target.value
+		// 	// console.log('Keyup Selection Start: ' + e.target.selectionStart)
+		// 	// console.log('Keyup Selection End: ' + e.target.selectionEnd)
+		// }
 
 
 
@@ -47,161 +57,137 @@ const keyUp = e => {
 		// debugger
 		if (value == null) return { offset: 1, value };
 		
-		// // const sections = value.replace(/[^0-9/]/g, '').split(/(\/)/);
+		// const captureGroups = new RegExp(/^(\+)([1])(\s)(\()(\d{1,3})(\))(\s)(\d{1,3})(-)(\d{1,4})$/);
 
-		// // // Fill in sections
-		// // let offset = 0;
-		// // let fragment = `${sections[0].slice(0, 2)}`;
+		// Individual Groups
+		// ^(\+)   ([1])   (\s)   (\()   (\d{1,3})   (\))   (\s)   (\d{1,3})   (-)   (\d{1,4})
 
-		const stripDelim = value.replace(/\D|\+/g, '')
+		// const testString = value
+		// const testMatch = testString.match(captureGroups)
 
+		// if (testMatch) {
+		// 	testMatch.forEach(match => console.log(match))
+		// }
+
+		// strip off delimeters that do not match the regex (digits, specified literal characters)
+		const stripDelim = value.replace(/[\D]/g, '')
+		// const stripDelim = value
+		// const stripDelim = value.replace(/^([+])(1{1})(\s{1})(\({1})([\d]{1,3})(\){1})(\s{1})([\d]{1,3})(\-{1})([\d]{1,4})$/, '')
+		
+		// const stripDelim = value.replace(/^([^+])([^1])([^\s])([^(])([\D]{3})([^)])([^\s])([\D]{3})([^-])([\D]{4})$/, '')
+		// const stripDelim = value.replace(/^[^+][^1][^\s][^(][\D]{3}[^)][^\s][\D]{3}[^-][\D]{4}$/, '')
+		// console.log('value')
+		// console.log(value)
+
+		// console.log('value match')
+		// let matchGroups = value.match(captureGroups)
+		// console.log(matchGroups)
+		// ...matchGroups.forEach(group => { console.log(group)})
+
+		// console.log('--------stripping--------------')
+		// console.log(stripDelim)
+		// console.log('--------stripping--------------')
+		// debugger
+		// Offset may not be needed yet, but we'll see
 		let offset = 0;
+		// Split the string into individual characters
 		let arr = stripDelim.split('')
-		console.log(arr)
 
+
+		// If the first character in the array is defined, is not +, place a + at the start
 		if (arr[0] && arr[0] !== '+') {
 			arr.unshift('+')
 		}
 
-		// if (arr[3] )
+		// if (arr[0]) {
+		// 	if (arr[0] !== '+') {
+		// 		return arr[0].replace(/[^+]/, '')
+		// 	}
+		// }
 
-	// 	if (value == null) return { offset: 0, value };
-	// 	// // Get the length of the number, without whitespace
-	// 	// let strLength = value.trim().length;
-	// 	// // Check to see if backspace is allowed
+		// Maybe I can input this logic to assess and replace dynamically?
 
-		
+		// if (arr[0]) {
+		// 	console.log(arr)
+		// 	if (arr[0] === '1') {
+		// 		arr.unshift('+')
+		// 	} else if (arr[0] !== '+') {
+		// 			arr[0].replace(/[^+]/, '')
+		// 	}
+		// }
 
-	// 	if (match && match[1]) {
-	// 		// const formatNum = `+${match[1]} (${match[2]}) ${match[3]}-${match[4]}`
-	// }
+		// if the second character is defined and is not a 1, insert a 1 into that position
+		if (arr[1] && arr[1] !== '1') {
+			arr.splice(1, 0, '1')
+		}
 
-	// debugger
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// if (value == null) return { offset: 0, value };
-	// // debugger
-  // //.split(/(\/)/);     .split(/[(+|(|)|-|\s)]/);
-	// const sections = value.replace(/[^0-9/]/g, '').split(/(\/)/);
-	// if (sections.length > 1 && sections[0] === '') {
-	// 	sections.shift()
-	// }
+		// if (arr[0]) {
+		// 	if (arr[0] === '1') {
+		// 		return arr.unshift('+')
+		// 	} else if (arr[0] !== '+') {
+		// 		return arr[0].replace(/[^+]/, '')
+		// 	}
+		// }
 
-  // // Fill in sections
-  // let offset = 0;
-	// let fragment = `${sections[0].slice(0, 1)}`;
-	// // Then = `+#`
+		//if the third character is defined, and is not an empty white space, insert the whitespace at this position 
+		if (arr[2] && arr[2] !== ' ') {
+			arr.splice(2, 0, ' ')
+		}
 
-  // // Add + before the first section if it needs to be added
-  // if (sections[0].length === 1 && sections[0] !== '/') {
-  //   fragment = `/${fragment}`;
-	// 	offset += 1;
-	// 	// Now = `+#`  sections[0]sections[1]
-	// }
+		//if the fourth character is defined, and is not a(, insert the ) at this position
+		if (arr[3] && arr[3] !== '(') {
+			arr.splice(3, 0, '(')
+		}
+
+		//if the eighth character is defined, and is not a ), insert the ) at this position
+		if (arr[7] && arr[7] !== ')') {
+			arr.splice(7, 0, ')')
+		}
+
+		//if the ninth character is defined, and is not a ' ', insert the ' ' at this position
+		if (arr[8] && arr[8] !== ' ') {
+			arr.splice(8, 0, ' ')
+		}
+
+		//if the thirteenth character is defined, and is not a -, insert the - at this position
+		if (arr[12] && arr[12] !== '-') {
+			arr.splice(12, 0, '-')
+		}
+
 	
-	// // If sections[1] is defined, and isn't 1, add the 1 following the + and push the fragment to the end
-	// if (sections[1] && sections[1].length === 1 && sections[1] !== 1) {
-	// 	fragment = `/1${fragment}`;
-	// 	offset += 1;
-	// 	// Now = `+1 (|#...` sections[0]sections[1]sections[2]sections[3]
-	// 	// /#/...
-	// }
-
-	// if (sections[2]) fragment = `${fragment}/${sections[2]}`
-	// // /#/###
-
-  
-	// if (sections[4]) fragment = `${fragment}${sections[3].slice(0, 3)}`;
-	// // /#//###...
-	// if (sections[4] && sections[4].length === 3 && sections[5] !== '/') {
-	// 	fragment = `${fragment}/`
-	// 	offset += 1;
-	// 	// /#//###/[6]
-	// }
-
-	// if (sections[6] && sections[6] !== '/') {
-	// 	fragment = `${fragment}/`
-	// 	offset += 1;
-	// 	// /#//###//[7]
-	// }
-
-	// if (sections[7]) fragment = `${fragment}${sections[7].slice(0, 3)}`;
-	// // /#//###//{3}
-	
-	// if (sections[7] && sections[7].length === 3 && sections[8] !== '/') {
-	// 	fragment = `${fragment}/`
-	// 	offset += 1;
-	// 	// /#//###//###/[9]
-	// }
-
-	// if (sections[9]) fragment = `${fragment}${sections[9].slice(0, 4)}`
-	// /#//###//###/####
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	// if (value === null) return { offset: 0, value };
-
-  // Take the current value and blow it into sections
-  // M M / D D / Y Y Y Y ------> [ M M, /, D D, /, Y Y Y Y ]
-  // M / D D / Y Y Y Y   ------> [ M, /, D D, /, Y Y Y Y ]
-  // M                   ------> [ M ]
-  // M M                 ------> [ M M ]
-	// / D D / Y Y Y Y     ------> [ /, D D, /, Y Y Y Y ]
-	//////////////////////.replace(/[^0-9]/g, '').split(/(\/)/);
-  // const sections = value.replace(/[^0-9/]/g, '').split(/(\/)/);
-
-  // // Fill in sections
-  // let offset = 0;
-  // let fragment = `${sections[0].slice(0, 2)}`;
-
-  // // Add slash after first section if it needs to be added
-  // if (sections[0].length === 2 && sections[1] !== '/') {
-  //   fragment = `${fragment}/`;
-	// 	offset += 1;
-  // }
-
-  // // Add next section
-  // if (sections[1]) fragment = `${fragment}${sections[1]}`;
-
-  // // Add next section
-  // if (sections[2]) fragment = `${fragment}${sections[2].slice(0, 2)}`;
-
-  // // Add slash after third section if it needs to be added
-  // if (sections[2] && sections[2].length === 2 && sections[3] !== '/') {
-  //   fragment = `${fragment}/`;
-  //   offset += 1;
-  // }
-
-  // // Add next section
-  // if (sections[3]) fragment = `${fragment}${sections[3]}`;
-
-  // // Add next section
-  // if (sections[4]) fragment = `${fragment}${sections[4]}`;
-
-  // return { value: fragment, offset };
-  let output = arr.join('')
-  console.log(output)
-	return { value: output, offset }
+	// declare a variable as 'output' in which we run a join on the array, to change it back into a string, passing in '' as an argument to remove any character-based delimeters
+		let output = arr.join('')
+		// console.log(output)	
+			// console.log('End function value');
+			// console.log(output)
+		// return value as the output variable
+		return { value: output, offset }
 	};
 
+	
+
 	return(
+		<>
 		<label>
 			Phone#:
 			<Text 
 				field="number" 
+				validateOnBlur
 				validate={validateNumber}
-				maxLength="18"
+				maxLength="17"
 				// value={!value && value !== 0 ? '' : value}
 				// onKeyPress={checkKey}
 				onKeyDown={onKeyDown}
-				onKeyUp={keyUp}
+				// onKeyUp={keyUp}
 				maskWithCursorOffset={mask}
 				// maintainCursor
+				style={fieldState.error ? { boxShadow: '0px 0px 5px 2px var(--grapefruit)' } : null}
 			/>
-			{fieldApi.error ? (
-        <small style={{ color: 'var(--aether)' }}>{fieldApi.error}</small>
-      ) : null}
 		</label>
+		{fieldState.error ? (
+			<small style={{ color: 'var(--aether)' }}>{fieldState.error}</small>
+		 ) : null}
+		 </>
 	);
 
 };

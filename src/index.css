@@ -14,10 +14,13 @@
   --aether-30: rgba(89, 224, 216, .3);
   --aether-70: rgba(89, 224, 216, .7);
   --solar-30: rgba(255, 173, 98, 0.3); /*Lightfall-Core / Form Inputs */
+  --solar-40: rgba(255, 173, 98, 0.4);
+  --solar-50: rgba(255, 173, 98, 0.5);
   --grapefruit-30: rgba(253, 96, 89, 0.3); /* Lightfall-Inner */
   --grapefruit-80: rgba(253, 96, 89, 0.8);
   --grapefruit-0: rgba(253, 96, 89, 0);
   --chemistry-30: rgba(253, 89, 128, 0.3); /* Lightfall-Outer */
+  --chemistry-10: rgba(253, 89, 128, 0.1);
   --lumo-70: rgba(198, 233, 233, .7);
 
   /* Font Stuff */
@@ -37,6 +40,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: var(--midnight);
+  /* background: linear-gradient(
+    to bottom,
+    var(--midnight),
+    var(--grapefruit-30) 90%
+  ); */
 }
 
 code {
