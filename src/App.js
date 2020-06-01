@@ -44,9 +44,9 @@ function App() {
 
   // I will need to use the hook to create a piece of local state within the component to work with
   
-  const sumSliders = (formState) => {
-    return Object.values(formState.values).reduce((accu, curr) => accu + curr, 0)
-  }
+  // const sumSliders = (formState) => {
+  //   return Object.values(formState.values).reduce((accu, curr) => accu + curr, 0)
+  // }
 
 
   return (
@@ -182,8 +182,8 @@ function App() {
         </div>
 
         <div className="form-right">
-          <FormState />
-       <label>Sum: {sumSliders(formState)}</label>
+           <FormState />
+       {/* <label>Sum: {sumSliders(formState)}</label> */}
           <pre>
             <code>
               {JSON.stringify(formState.values, null, 2)}
@@ -195,14 +195,14 @@ function App() {
         )}
       </Form>
 
-      {/* <h1>Relative valued slider | max sum</h1>
+      <h1>Relative valued slider | max sum</h1>
       <Form>
        {({ formState, formApi }) => (
          <>
         <div className="form-left">
           <div className="form-left-sliders">
            
-            <InformedLinkedSliders formState={formState} formApi={formApi} field="[yawp]"/>
+            <InformedLinkedSliders formState={formState} formApi={formApi} /*field="boops"*//>
             
           </div>
           <button type="submit" className="slideSubmit">Submit</button>
@@ -210,7 +210,7 @@ function App() {
 
         <div className="form-right">
           <FormState />
-       <label>Sum: {sumSliders(formState)}</label>
+       {/* <label>Sum: {sumSliders(formState)}</label> */}
           <pre>
             <code>
               {JSON.stringify(formState.values, null, 2)}
@@ -220,7 +220,7 @@ function App() {
         </div>
         </>
         )}
-      </Form> */}
+      </Form>
     </div>
   );
 }
